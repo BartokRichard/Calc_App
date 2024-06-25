@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".CurrencyExchangeActivity">
+
+    <!-- Navigation buttons -->
+    <ImageButton
+        android:id="@+id/btnCalc"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/rounded_button_background_inactive"
+        android:contentDescription="@string/calc"
+        android:src="@drawable/calc"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCurrency" />
+
+    <ImageButton
+        android:id="@+id/btnCurrency"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_button_background_active"
+        android:clickable="false"
+        android:contentDescription="@string/currency_exchange"
+        android:src="@drawable/currency_exchange"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCalc"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="80dp"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <!-- Currency TextViews and Spinners -->
+    <LinearLayout
+        android:id="@+id/currencyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="122dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <Spinner
+                android:id="@+id/spinnerFrom"
+                android:layout_width="75dp"
+                android:layout_height="48dp"
+                android:entries="@array/currencies"
+                android:padding="8dp"
+                android:popupBackground="@color/black" />
+
+            <TextView
+                android:id="@+id/tvFromAmount"
+                android:layout_width="242dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="0"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvFromCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="From"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <Spinner
+                android:id="@+id/spinnerTo"
+                android:layout_width="75dp"
+                android:layout_height="48dp"
+                android:entries="@array/currencies"
+                android:padding="8dp"
+                android:popupBackground="@color/black" />
+
+            <TextView
+                android:id="@+id/tvToAmount"
+                android:layout_width="201dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="8dp"
+                android:text="0"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvToCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="To"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Keypad -->
+    <GridLayout
+        android:id="@+id/keypad"
+        android:layout_width="0dp"
+        android:layout_height="420dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:columnCount="4"
+        android:rowCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currencyLayout"
+        app:layout_constraintVertical_bias="0.92">
+
+        <!-- Numeric buttons -->
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            app:cornerRadius="15dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="7"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:textSize="26sp"
+            app:cornerRadius="15dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="8"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            app:cornerRadius="15dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="9"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowSpan="2"
+            android:layout_rowWeight="2"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:backgroundTint="@color/soft_purple"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="AC"
+            android:onClick="onClearClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="4"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="5"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="6"
+            android:textSize="26sp"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="1"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="2"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="3"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnSpan="2"
+            android:layout_columnWeight="2"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="0"
+            android:onClick="onNumberClick" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            app:cornerRadius="15dp"
+            android:textSize="26sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="."
+            android:onClick="onNumberClick" />
+
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
